@@ -1,0 +1,60 @@
+;*******************************************************************************
+; Copyright (c) 2016 Broadcom Limited.
+;
+; NDSPI DLL uninstallation INF.
+;
+; History:
+;    06/10/2016 grigora             Inception.
+;
+;*******************************************************************************
+; For uninstallation, right click on this file in the Explorer and select Install
+
+[Version]
+Signature="$Windows NT$"
+Provider=%Provider%
+
+[DefaultInstall]
+
+[DefaultInstall.ntamd64]
+DelFiles=ndspi.DelFiles.amd64,ndspi.DelFiles.WOW64
+UnregisterDlls=ndspi.UnregisterDlls.x64
+;UnregisterDlls=ndspi.UnregisterDlls.x64,ndspi.UnregisterDlls.x86
+
+; [DefaultInstall.ntx86]
+; DelFiles=ndspi.DelFiles.x86
+; UnregisterDlls=ndspi.UnregisterDlls.x86
+
+[ndspi.DelFiles.amd64]
+bxndspi.dll,,,
+
+[ndspi.DelFiles.WOW64]
+bxndspi.dll,,,
+
+; [ndspi.DelFiles.x86]
+; bxndspi.dll,,,
+
+; [ndspi.UnregisterDlls.x86]
+; 01,,bxndspi.x86.dll,2	; will call HRESULT DllInstall(BOOL   bInstall=FALSE, _In_opt_ PCWSTR pszCmdLine=NULL);
+
+[ndspi.UnregisterDlls.x64]
+01,,bxndspi.dll,2	; will call HRESULT DllInstall(BOOL   bInstall=FALSE, _In_opt_ PCWSTR pszCmdLine=NULL);
+
+; [SourceDiskFiles.x86]
+; bxndspi.x86.dll = 1,
+
+[SourceDiskFiles.amd64]
+bxndspi.dll = 1,
+;bxndspi.x86.dll = 1,
+
+[SourceDisksNames]
+1 = %NDSPI_Description%,
+
+[DestinationDirs]
+ndspi.DelFiles.amd64 = 11
+ndspi.DelFiles.WOW64 = 10,SysWOW64
+; ndspi.DelFiles.x86 = 11
+
+[strings]
+Provider = Broadcom Limited
+NDSPI_Description = Broadcom NDSPI installation disk
+

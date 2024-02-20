@@ -1,0 +1,92 @@
+;*******************************************************************************
+; Copyright (c) 2016 Broadcom Limited.
+;
+; NDSPI DLL installation INF.
+;
+; History:
+;    06/10/2016 grigora             Inception.
+;
+;*******************************************************************************
+; For installation, right click on this file in the Explorer and select Install
+; DefaultUninstall section can be invoked by:
+; RUNDLL32.EXE SETUPAPI.DLL,InstallHinfSection DefaultUninstall 132 path-to-uninstall-dir\NdspiInstall.inf
+; Note that the path (or .\) is required with the INF file name
+; For manual uninstallation of the provider, use right-click-Install on NdspiUninstall.inf file in the explorer
+
+[Version]
+Signature="$Windows NT$"
+Provider=%Provider%
+
+[DefaultInstall]
+
+[DefaultInstall.ntamd64]
+CopyFiles=ndspi.CopyFiles.amd64,ndspi.CopyFiles.WOW64
+RegisterDlls=ndspi.RegisterDlls.amd64
+
+;[DefaultInstall.ntx86]
+;CopyFiles=ndspi.CopyFiles.x86
+;RegisterDlls=ndspi.RegisterDlls
+
+[DefaultUninstall.ntamd64]
+DelFiles=ndspi.DelFiles.amd64,ndspi.DelFiles.WOW64
+UnregisterDlls=ndspi.UnregisterDlls.x64
+
+;[DefaultUninstall.ntx86]
+;DelFiles=ndspi.DelFiles.x86
+;UnregisterDlls=ndspi.UnregisterDlls.x86
+
+[ndspi.CopyFiles.amd64]
+bxndspi.dll,,,0x4000	; COPYFLG_IN_USE_RENAME
+
+; [ndspi.CopyFiles.WOW64]
+; bxndspi.dll,bxndspi.x86.dll,,0x4000	; COPYFLG_IN_USE_RENAME
+
+[ndspi.CopyFiles.WOW64]
+bxndspi.dll,,0x4000	; COPYFLG_IN_USE_RENAME
+
+;[ndspi.CopyFiles.x86]
+;bxndspi.dll,bxndspi.x86.dll,,0x4000	; COPYFLG_IN_USE_RENAME
+
+[ndspi.DelFiles.amd64]
+bxndspi.dll,,,
+
+[ndspi.DelFiles.WOW64]
+bxndspi.dll,,,
+
+;[ndspi.DelFiles.x86]
+;bxndspi.dll,,,
+
+[ndspi.RegisterDlls.amd64]
+11,,bxndspi.dll,2	; will call HRESULT DllInstall(BOOL   bInstall=TRUE, _In_opt_ PCWSTR pszCmdLine=NULL);
+10,SysWOW64,bxndspi.dll,2	; will call HRESULT DllInstall(BOOL   bInstall=TRUE, _In_opt_ PCWSTR pszCmdLine=NULL);
+
+[ndspi.RegisterDlls]
+11,,bxndspi.dll,2	; will call HRESULT DllInstall(BOOL   bInstall=TRUE, _In_opt_ PCWSTR pszCmdLine=NULL);
+
+;[ndspi.UnregisterDlls.x86]
+;01,,bxndspi.x86.dll,2	; will call HRESULT DllInstall(BOOL   bInstall=FALSE, _In_opt_ PCWSTR pszCmdLine=NULL);
+
+[ndspi.UnregisterDlls.x64]
+01,,bxndspi.dll,2	; will call HRESULT DllInstall(BOOL   bInstall=FALSE, _In_opt_ PCWSTR pszCmdLine=NULL);
+
+;[SourceDiskFiles.x86]
+;bxndspi.x86.dll = 1,
+
+[SourceDiskFiles.amd64]
+bxndspi.dll = 1,
+;bxndspi.x86.dll = 1,
+
+[SourceDisksNames]
+1 = %NDSPI_Description%,
+
+[DestinationDirs]
+ndspi.CopyFiles.amd64 = 11
+ndspi.CopyFiles.WOW64 = 10,SysWOW64
+;ndspi.CopyFiles.x86 = 11
+ndspi.DelFiles.amd64 = 11
+ndspi.DelFiles.WOW64 = 10,SysWOW64
+;ndspi.DelFiles.x86 = 11
+
+[strings]
+Provider = Broadcom Limited
+NDSPI_Description = Broadcom NDSPI installation disk

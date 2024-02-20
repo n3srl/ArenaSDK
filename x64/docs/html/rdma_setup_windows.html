@@ -1,0 +1,507 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Configuring RDMA for Windows &mdash; Arena 1.0.41.13 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="Arena 1.0.41.13 documentation" href="index.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home">
+          
+
+          <!--
+            
+            <img src="_static/lucid-white.png" class="logo" />
+          -->
+          </a>
+
+          
+            
+            
+              <div class="version">
+                1.0.41
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="welcome.html">Welcome</a></li>
+<li class="toctree-l1"><a class="reference internal" href="contact_us.html">Contact Us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="getting_started_sdk_datasheet.html">Arena SDK Datasheet</a></li>
+<li class="toctree-l1"><a class="reference internal" href="arena_sdk_windows.html">Arena SDK for Windows</a></li>
+<li class="toctree-l1"><a class="reference internal" href="arena_sdk_linux.html">Arena SDK for Linux</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sdk.html">Code Reference &amp; Samples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="arena_api.html">Arena Python API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="jupyter_guide.html">Using LUCID’s ArenaView with Jupyter Notebooks</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Arena</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Configuring RDMA for Windows</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="configuring-rdma-for-windows">
+<h1>Configuring RDMA for Windows<a class="headerlink" href="#configuring-rdma-for-windows" title="Permalink to this headline">¶</a></h1>
+<p>The Remote Direct Memory Access (RDMA) is a feature available on compatible LUCID cameras that enables
+camera data to be transferred to the host’s RAM directly via the network card bypassing the host’s CPU.
+This results in lower latency and higher speeds.</p>
+<p>To use the RDMA feature with LUCID cameras, you need to use a compatible netword card supplied by LUCID.</p>
+<p>The sections below describe the prerequisites for RDMA, some example environments, and a configuration procedure.</p>
+<div class="section" id="prerequisites">
+<h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
+<p>Windows configuration of RDMA requires the following host computer and camera:</p>
+<p>Host computer:</p>
+<ul>
+<li><p class="first">Windows 10 Pro (64-bit) or Windows 11 Pro (64-bit)</p>
+</li>
+<li><p class="first">A compatible network card. Examples:</p>
+<blockquote>
+<div><ul class="simple">
+<li>PCIE-10GPOE2-LUCID (LUCID dual port 1G/10G PoE+ RDMA-enabled network card)</li>
+<li>PCIE-10GETH2-BC (Broadcom Dual Port 10G Ethernet Card)</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">PCIe Generation 3 x8</p>
+</li>
+<li><p class="first">ArenaSDK (with RDMA support) installed</p>
+</li>
+</ul>
+<p>Camera:</p>
+<ul class="simple">
+<li>A compatible LUCID camera with up-to-date firmware</li>
+</ul>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="88%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td rowspan="3"><a class="reference internal" href="_images/lightbulb_icon.png"><img alt="light_bulb" src="_images/lightbulb_icon.png" style="width: 70px;" /></a></td>
+<td rowspan="3">The PCIE-10GPOE2-LUCID network card from LUCID is a 1G/10G network card.
+A Triton2 (2.5G) or an Atlas/Atlas IP67 (5G) connected to this card would each connect as 1G device.</td>
+</tr>
+<tr class="row-even"></tr>
+<tr class="row-odd"></tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="example-systems">
+<h2>Example systems<a class="headerlink" href="#example-systems" title="Permalink to this headline">¶</a></h2>
+<p>The following are systems tested by LUCID that were successfully configured to use RDMA with a compatible LUCID camera.</p>
+<p><strong>System 1: Streaming 1x Atlas10 camera</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Motherboard</td>
+<td>ASUS PRIME Z370-A</td>
+</tr>
+<tr class="row-even"><td>Processor</td>
+<td>Intel(R) Core(TM) i7-8700 CPU &#64; 3.60GHz</td>
+</tr>
+<tr class="row-odd"><td>Memory</td>
+<td>Crucial Technology BLS8G4D26BFSB.16FBD2 16GB (2x8GB) DDR4 SDRAM</td>
+</tr>
+<tr class="row-even"><td>Memory Channels</td>
+<td>2 available, 2 active</td>
+</tr>
+<tr class="row-odd"><td>Operating System</td>
+<td>Windows 10 Professional (x64) version 22H2, build 19045.2486</td>
+</tr>
+<tr class="row-even"><td>Video</td>
+<td>Intel HD Graphics 630</td>
+</tr>
+<tr class="row-odd"><td>Storage</td>
+<td>Samsung SSD 850 EVO 500GB</td>
+</tr>
+<tr class="row-even"><td>Network Card</td>
+<td>LUCID RDMA Network Card PCIE-10GPOE2-LUCID</td>
+</tr>
+</tbody>
+</table>
+<p><strong>System 2: Streaming 4x Atlas10 cameras</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="75%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Motherboard</td>
+<td>ASUS PRIME X299-A II</td>
+</tr>
+<tr class="row-even"><td>Processor</td>
+<td>Intel(R) Core(TM) i9-10900X CPU &#64; 3.70GHz</td>
+</tr>
+<tr class="row-odd"><td>Memory</td>
+<td>Kingston 9905743-213.A00G 128GB (8x16GB) 16 GB PC4-25600 DDR4 SDRAM</td>
+</tr>
+<tr class="row-even"><td>Memory Channels</td>
+<td>4 available, 4 active</td>
+</tr>
+<tr class="row-odd"><td>Operating System</td>
+<td>Windows 10 Professional (x64) version 22H2, build 19045.2604</td>
+</tr>
+<tr class="row-even"><td>Video</td>
+<td>NVIDIA GeForce GT 730, 2GB</td>
+</tr>
+<tr class="row-odd"><td>Storage</td>
+<td>KINGSTON SKC3000S512G 512GB</td>
+</tr>
+<tr class="row-even"><td>Network Card</td>
+<td>2x LUCID RDMA Network Cards PCIE-10GPOE2-LUCID</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Driver Firmware for network card</strong></p>
+<p>For each of the systems above, the LUCID RDMA Network Card PCIE-10GPOE2-LUCID had the following driver and firmware:</p>
+<ul class="simple">
+<li>Driver version: 224.0.159.0, Date: 11/4/2022</li>
+<li>Network card firmware version: 224.1.102.0</li>
+</ul>
+<p>The Arena SDK installation automatically installs the driver.
+Related firmware updates may be available for download from the LUCID website.
+Update the firmware following the instructions that accompany the firmware files.</p>
+<a class="reference internal image-reference" href="_images/rdma_nic_driver_properties.jpg"><img alt="_images/rdma_nic_driver_properties.jpg" src="_images/rdma_nic_driver_properties.jpg" style="width: 350px;" /></a>
+</div>
+<div class="section" id="initial-preparation">
+<h2>Initial preparation<a class="headerlink" href="#initial-preparation" title="Permalink to this headline">¶</a></h2>
+<p>To configure the host computer:</p>
+<ol class="arabic">
+<li><p class="first">Manage power-saving features on host motherboard.</p>
+<p>Disable the following power-saving properties on the motherboard if they are present and enabled.</p>
+<blockquote>
+<div><ul class="simple">
+<li>Intel SpeedStep</li>
+<li>C1 State (Halt)</li>
+<li>C1E State (Enhanced Halt)</li>
+<li>The system should be using C0 (Operating State)</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">Turn off sound notifications.</p>
+<p>Open <strong>Settings &gt; Notifications and Actions</strong>, and ensure that <strong>Allow notifications to play sounds</strong> is cleared.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="11%" />
+<col width="89%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td rowspan="2"><a class="reference internal" href="_images/lightbulb_icon.png"><img alt="light_bulb" src="_images/lightbulb_icon.png" style="width: 70px;" /></a></td>
+<td rowspan="2">Sounds for notifications need to be off so Windows does not prioritize them over the delivery of network packets.</td>
+</tr>
+<tr class="row-even"></tr>
+</tbody>
+</table>
+</li>
+<li><p class="first">Connect power to the card via the SATA connector.</p>
+<blockquote>
+<div><a class="reference internal image-reference" href="_images/rdma_power_attachment.jpg"><img alt="_images/rdma_power_attachment.jpg" src="_images/rdma_power_attachment.jpg" style="width: 500px;" /></a>
+</div></blockquote>
+</li>
+<li><p class="first">Ensure that your RAM placement activates the maximum number of memory channels.</p>
+<div class="figure" id="id1">
+<a class="reference internal image-reference" href="_images/rdma_hwinfo_memory_channels.jpg"><img alt="_images/rdma_hwinfo_memory_channels.jpg" src="_images/rdma_hwinfo_memory_channels.jpg" style="width: 400px;" /></a>
+<p class="caption"><span class="caption-text">System information captured with HWInfo.</span></p>
+</div>
+<p>Consult the documentation for your motherboard to determine the optimal memory sequence.</p>
+</li>
+<li><p class="first">Confirm that your card has established the minimum PCIe bandwidth required for 10G transmission.</p>
+<div class="figure" id="id2">
+<a class="reference internal image-reference" href="_images/rdma_pcie_bandwidth.jpg"><img alt="_images/rdma_pcie_bandwidth.jpg" src="_images/rdma_pcie_bandwidth.jpg" style="width: 550px;" /></a>
+<p class="caption"><span class="caption-text">System information captured with HWInfo.</span></p>
+</div>
+<p>The table below shows the minimum link width required for the number of cameras connected.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="26%" />
+<col width="74%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head"># of 10G cameras</th>
+<th class="head">Link width and speed required</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>1</td>
+<td>PCIe Version: 3.0, Link Width 2x, Link Speed 4.0 GT/s</td>
+</tr>
+<tr class="row-odd"><td>2</td>
+<td>PCIe Version: 3.0, Link Width 4x, Link Speed 4.0 GT/s</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+</div>
+<div class="section" id="installation-procedure">
+<h2>Installation procedure<a class="headerlink" href="#installation-procedure" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic">
+<li><p class="first">Complete the initial setup of the network card.</p>
+<blockquote>
+<div><ol class="loweralpha">
+<li><p class="first">Open the Run dialog using Windows + R, and run ncpa.cpl to find your network connections associated with your NIC.
+For each associated Ethernet connection, clear all Networking options except the following:</p>
+<blockquote>
+<div><ul class="simple">
+<li>LUCID Vision Labs Lightweight Filter Driver</li>
+<li>Internet Protocol Version 4 (TCP/IPv4)</li>
+<li>Internet Protocol Version 6 (TCP/IPv6)</li>
+</ul>
+</div></blockquote>
+<a class="reference internal image-reference" href="_images/rdma_nic_properties.jpg"><img alt="_images/rdma_nic_properties.jpg" src="_images/rdma_nic_properties.jpg" style="width: 350px;" /></a>
+</li>
+<li><p class="first">Assign an IP Address and Subnet to your NIC.</p>
+<a class="reference internal image-reference" href="_images/rdma_ip_address.jpg"><img alt="_images/rdma_ip_address.jpg" src="_images/rdma_ip_address.jpg" style="width: 350px;" /></a>
+</li>
+<li><p class="first">In the PCIE-10GPOE2-LUCID or the PCIE-10GETH2-BC network cards, ensure that the following settings are configured as shown.</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="51%" />
+<col width="49%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td>Energy-Efficient Ethernet</td>
+<td>Disabled</td>
+</tr>
+<tr class="row-even"><td>Jumbo Packet</td>
+<td>9174 (set maximum value)</td>
+</tr>
+<tr class="row-odd"><td>NetworkDirect functionality</td>
+<td>Enabled</td>
+</tr>
+<tr class="row-even"><td>NetworkDirect Technology</td>
+<td>RoCE v2</td>
+</tr>
+<tr class="row-odd"><td>RoCE MTU</td>
+<td>4096</td>
+</tr>
+<tr class="row-even"><td>Allow the computer to turn
+off this device to save power</td>
+<td>Cleared</td>
+</tr>
+</tbody>
+</table>
+</li>
+</ol>
+</div></blockquote>
+</li>
+</ol>
+</div>
+<div class="section" id="activating-rdma">
+<h2>Activating RDMA<a class="headerlink" href="#activating-rdma" title="Permalink to this headline">¶</a></h2>
+<p>To use RDMA mode on a compatible LUCID camera, open ArenaView and set Transmission Stream Protocol to RDMA.</p>
+<a class="reference internal image-reference" href="_images/rdma_arenaview.jpg"><img alt="_images/rdma_arenaview.jpg" src="_images/rdma_arenaview.jpg" style="width: 550px;" /></a>
+<p>In C++, this is equivalent to the following:</p>
+<div class="highlight-cpp"><div class="highlight"><pre><span></span><span class="n">Arena</span><span class="o">::</span><span class="n">IDevice</span><span class="o">*</span> <span class="n">pDevice</span> <span class="o">=</span> <span class="n">pSystem</span><span class="o">-&gt;</span><span class="n">CreateDevice</span><span class="p">(</span><span class="n">deviceInfos</span><span class="p">[</span><span class="mi">0</span><span class="p">]);</span> 
+<span class="n">Arena</span><span class="o">::</span><span class="n">SetNodeValue</span><span class="o">&lt;</span><span class="n">GenICam</span><span class="o">::</span><span class="n">gcstring</span><span class="o">&gt;</span><span class="p">(</span><span class="n">pDevice</span><span class="o">-&gt;</span><span class="n">GetNodeMap</span><span class="p">(),</span> <span class="s">&quot;TransportStreamProtocol&quot;</span><span class="p">,</span> <span class="s">&quot;RDMA&quot;</span><span class="p">);</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">TAB1</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;GevSCPD = &quot;</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span> 
+<span class="n">Arena</span><span class="o">::</span><span class="n">SetNodeValue</span><span class="o">&lt;</span><span class="kt">int64_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">pDevice</span><span class="o">-&gt;</span><span class="n">GetNodeMap</span><span class="p">(),</span> <span class="s">&quot;GevSCPD&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span> 
+ 	 	 
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">TAB1</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;DeviceLinkThroughputReserve = &quot;</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span> <span class="o">&lt;&lt;</span> <span class="n">std</span><span class="o">::</span><span class="n">endl</span><span class="p">;</span> 
+<span class="n">Arena</span><span class="o">::</span><span class="n">SetNodeValue</span><span class="o">&lt;</span><span class="kt">int64_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">pDevice</span><span class="o">-&gt;</span><span class="n">GetNodeMap</span><span class="p">(),</span> <span class="s">&quot;DeviceLinkThroughputReserve&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>  
+<span class="n">Arena</span><span class="o">::</span><span class="n">SetNodeValue</span><span class="o">&lt;</span><span class="kt">int64_t</span><span class="o">&gt;</span><span class="p">(</span><span class="n">pDevice</span><span class="o">-&gt;</span><span class="n">GetNodeMap</span><span class="p">(),</span> <span class="s">&quot;GevSCPSPacketSize&quot;</span><span class="p">,</span> <span class="mi">16000</span><span class="p">);</span>  
+</pre></div>
+</div>
+<table border="1" class="docutils">
+<colgroup>
+<col width="12%" />
+<col width="88%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="_images/lightbulb_icon.png"><img alt="light_bulb" src="_images/lightbulb_icon.png" style="width: 70px;" /></a></td>
+<td>10G link speed is required to use RDMA.
+If the camera is streaming images, you must call StopStream before setting TransportStreamProtocol.
+and enter the following command (administrator prompt required):</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2022, Lucid Vision Labs, Inc.
+
+    </p>
+  </div> 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'1.0.41.13',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
